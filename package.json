@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-workflow-lock",
+  "name": "n8n-nodes-in-memory-kvs",
   "version": "0.1.0",
   "description": "",
   "keywords": [
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oppai/n8n-nodes-workflow-lock.git"
+    "url": "https://github.com/oppai/n8n-nodes-in-memory-kvs.git"
   },
   "engines": {
     "node": ">=20.15"
