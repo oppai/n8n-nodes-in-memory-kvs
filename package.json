@@ -1,12 +1,12 @@
 {
   "name": "n8n-nodes-in-memory-kvs",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "In-Memory Key-Value Store for n8n workflows",
   "keywords": [
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/oppai/n8n-nodes-in-memory-kvs",
   "author": {
     "name": "@oppai"
   },
@@ -30,7 +30,8 @@
     "prepublishOnly": "npm run build"
   },
   "files": [
-    "dist"
+    "dist",
+    "index.js"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
