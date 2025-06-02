@@ -1,4 +1,4 @@
-import { KVSEngine, KVSScope } from '../src/core/KVSEngine';
+import { KVSEngine, KVSScope } from './KVSEngine';
 
 describe('KVSEngine', () => {
   let kvsEngine: KVSEngine;
@@ -79,7 +79,7 @@ describe('KVSEngine', () => {
   describe('TTL機能', () => {
     it('TTLを指定すると期限切れ後にundefinedを返す', () => {
       jest.useFakeTimers();
-      
+
       const scope: KVSScope = 'workflow';
       const scopeId = 'workflow-123';
       const key = 'ttlKey';
@@ -87,33 +87,33 @@ describe('KVSEngine', () => {
       const ttl = 5; // 5秒
 
       kvsEngine.set(scope, scopeId, key, value, ttl);
-      
+
       // TTL期限前
       expect(kvsEngine.get(scope, scopeId, key)).toBe(value);
-      
+
       // TTL期限後（5秒以上経過）
       jest.advanceTimersByTime(6000); // 6秒進める
-      
+
       expect(kvsEngine.get(scope, scopeId, key)).toBeUndefined();
-      
+
       jest.useRealTimers();
     });
 
     it('TTLを指定しない場合は無期限', () => {
       jest.useFakeTimers();
-      
+
       const scope: KVSScope = 'workflow';
       const scopeId = 'workflow-123';
       const key = 'noTtlKey';
       const value = 'noTtlValue';
 
       kvsEngine.set(scope, scopeId, key, value);
-      
+
       // 長時間経過しても値は保持される
       jest.advanceTimersByTime(1000 * 60 * 60 * 24 * 365); // 1年進める
-      
+
       expect(kvsEngine.get(scope, scopeId, key)).toBe(value);
-      
+
       jest.useRealTimers();
     });
   });
@@ -138,10 +138,10 @@ describe('KVSEngine', () => {
       const workflowScope: KVSScope = 'workflow';
       const instanceScope: KVSScope = 'instance';
       const executionScope: KVSScope = 'execution';
-      
+
       const workflowId = 'workflow-123';
       const executionId = 'execution-123';
-      
+
       const key = 'commonKey';
       const workflowValue = 'workflowValue';
       const instanceValue = 'instanceValue';
@@ -166,9 +166,9 @@ describe('KVSEngine', () => {
 
       kvsEngine.set(scope, scopeId, key1, 'value1');
       kvsEngine.set(scope, scopeId, key2, 'value2');
-      
+
       kvsEngine.clear(scope, scopeId);
-      
+
       expect(kvsEngine.get(scope, scopeId, key1)).toBeUndefined();
       expect(kvsEngine.get(scope, scopeId, key2)).toBeUndefined();
     });
@@ -180,9 +180,9 @@ describe('KVSEngine', () => {
 
       kvsEngine.set(scope, null, key1, 'value1');
       kvsEngine.set(scope, null, key2, 'value2');
-      
+
       kvsEngine.clear(scope, null);
-      
+
       expect(kvsEngine.get(scope, null, key1)).toBeUndefined();
       expect(kvsEngine.get(scope, null, key2)).toBeUndefined();
     });
@@ -195,9 +195,9 @@ describe('KVSEngine', () => {
 
       kvsEngine.set(scope, executionId, key1, 'value1');
       kvsEngine.set(scope, executionId, key2, 'value2');
-      
+
       kvsEngine.clear(scope, executionId);
-      
+
       expect(kvsEngine.get(scope, executionId, key1)).toBeUndefined();
       expect(kvsEngine.get(scope, executionId, key2)).toBeUndefined();
     });
@@ -210,9 +210,9 @@ describe('KVSEngine', () => {
       const key = 'executionKey';
 
       kvsEngine.set(scope, executionId, key, 'value');
-      
+
       kvsEngine.cleanupExecution(executionId);
-      
+
       expect(kvsEngine.get(scope, executionId, key)).toBeUndefined();
     });
   });

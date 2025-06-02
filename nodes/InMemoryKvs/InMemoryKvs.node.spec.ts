@@ -1,10 +1,12 @@
-import { IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
-import { InMemoryKvs } from '../src/nodes/InMemoryKvs.node';
-import { KVSEngine } from '../src/core/KVSEngine';
+import { IExecuteFunctions, INodeExecutionData, NodeOperationError } from 'n8n-workflow';
+import { InMemoryKvs } from './InMemoryKvs.node';
+import { KVSEngine } from './KVSEngine';
 
 // n8nノードのモック
 jest.mock('n8n-workflow', () => {
+  const originalModule = jest.requireActual('n8n-workflow');
   return {
+    ...originalModule,
     NodeOperationError: jest.fn().mockImplementation((node, message) => {
       return new Error(message);
     }),
