@@ -1,5 +1,10 @@
 ![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
 
+[![Test](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/test.yml/badge.svg)](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/test.yml)
+[![Publish to NPM](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/publish.yml/badge.svg)](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/publish.yml)
+[![CodeQL](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/codeql.yml/badge.svg)](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/codeql.yml)
+[![npm version](https://badge.fury.io/js/n8n-nodes-in-memory-kvs.svg)](https://badge.fury.io/js/n8n-nodes-in-memory-kvs)
+
 # n8n-nodes-in-memory-kvs
 
 This is an n8n community node. It lets you use In-Memory Key-Value Store (KVS) in your n8n workflows.

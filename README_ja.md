@@ -1,5 +1,10 @@
 # n8n-nodes-in-memory-kvs
 
+[![Test](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/test.yml/badge.svg)](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/test.yml)
+[![Publish to NPM](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/publish.yml/badge.svg)](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/publish.yml)
+[![CodeQL](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/codeql.yml/badge.svg)](https://github.com/oppai/n8n-nodes-in-memory-kvs/actions/workflows/codeql.yml)
+[![npm version](https://badge.fury.io/js/n8n-nodes-in-memory-kvs.svg)](https://badge.fury.io/js/n8n-nodes-in-memory-kvs)
+
 これはn8nコミュニティノードです。n8nワークフロー内でIn-Memory Key-Value Store（KVS）を使用できます。
 
 In-Memory KVSは、ワークフロー実行中にデータを一時的に保存・取得するためのメモリベースのキー・バリューストアです。異なるスコープ（ワークフロー、インスタンス、実行）でデータの永続性を制御できます。

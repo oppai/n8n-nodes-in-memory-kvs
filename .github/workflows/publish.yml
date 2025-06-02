@@ -1,0 +1,98 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., patch, minor, major, or specific version like 1.2.3)'
+        required: true
+        default: 'patch'
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm run test:coverage
+
+    - name: Run linter
+      run: npm run lint
+
+    - name: Build project
+      run: npm run build
+
+    - name: Configure Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Bump version (manual trigger)
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        npm version ${{ github.event.inputs.version }} --no-git-tag-version
+        echo "NEW_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+
+    - name: Get version from tag (release trigger)
+      if: github.event_name == 'release'
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/v}
+        npm version $VERSION --no-git-tag-version
+        echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Verify package contents
+      run: |
+        npm pack --dry-run
+        echo "Package contents:"
+        tar -tzf $(npm pack --silent) | head -20
+
+    - name: Publish to NPM
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Create GitHub release (manual trigger)
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ env.NEW_VERSION }}
+        release_name: Release v${{ env.NEW_VERSION }}
+        body: |
+          Release v${{ env.NEW_VERSION }}
+
+          ## Changes
+          - Automated release from workflow dispatch
+
+          ## Installation
+          ```bash
+          npm install n8n-nodes-in-memory-kvs
+          ```
+        draft: false
+        prerelease: false
+
+    - name: Commit version bump (manual trigger)
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        git add package.json package-lock.json
+        git commit -m "chore: bump version to v${{ env.NEW_VERSION }}"
+        git push origin main
