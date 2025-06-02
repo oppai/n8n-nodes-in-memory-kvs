@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- フタ -->
+  <path d="M0 12 L32 0 L64 12 L64 16 L0 16 Z" fill="#E2C89F" stroke="#A67C52" stroke-width="2"/>
+
+  <!-- 本体 -->
+  <rect x="0" y="16" width="64" height="48" fill="#F4E2C9" stroke="#A67C52" stroke-width="2"/>
+
+  <!-- 取っ手穴 -->
+  <rect x="26" y="32" width="12" height="4" rx="2" fill="#A67C52"/>
+
+  <!-- KVSラベル（大きく） -->
+  <text x="32" y="52" font-size="26" font-family="sans-serif" fill="#4B2E16" text-anchor="middle" dominant-baseline="middle">KVS</text>
+</svg>
