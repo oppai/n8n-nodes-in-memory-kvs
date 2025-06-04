@@ -52,7 +52,7 @@ Three scopes are available to control data persistence:
 ## Compatibility
 
 - Minimum n8n version: 1.0.0
-- Node.js: 20.15 or higher
+ - Node.js: 20.15 or higher
 
 ## Usage
 
